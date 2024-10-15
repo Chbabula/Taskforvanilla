@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 
 const Number = ({ numbers }) => {
-  // Initialize state to track the current index in the array
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isThrottled, setIsThrottled] = useState(false); 
 
-  // Function to handle the button click, increment index and loop when reaching the end
   const handleNextNumber = () => {
+    
+    if (isThrottled) return;
+
     setCurrentIndex((prevIndex) => (prevIndex + 1) % numbers.length);
+
+
+    setIsThrottled(true);
+    setTimeout(() => {
+      setIsThrottled(false);
+    }, 200); 
   };
 
   return (
